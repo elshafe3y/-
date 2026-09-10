@@ -1,0 +1,255 @@
+:root {
+  --wine-deep: #2a060a;
+  --wine: #4a0d16;
+  --wine-soft: #5c1220;
+  --gold: #d9b45f;
+  --gold-bright: #f0d68a;
+  --gold-dim: #a8863f;
+  --cream: #f4ead2;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+  background: #160306;
+  color: var(--cream);
+  direction: rtl;
+}
+
+.stage {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Ambient glow */
+.glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(130px);
+  pointer-events: none;
+}
+.glow-top {
+  left: 50%;
+  top: -10%;
+  width: 38rem;
+  height: 38rem;
+  transform: translateX(-50%);
+  background: rgba(217, 180, 95, 0.1);
+}
+.glow-bottom {
+  right: -10%;
+  bottom: -20%;
+  width: 30rem;
+  height: 30rem;
+  background: rgba(92, 18, 32, 0.4);
+}
+
+/* Slides */
+.slides {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+.slide {
+  position: relative;
+  width: 100%;
+  display: none;
+}
+.slide.active {
+  display: block;
+  animation: slideReveal 900ms cubic-bezier(0.83, 0, 0.17, 1) both;
+}
+.slide img {
+  display: block;
+  width: 100%;
+  max-height: 100vh;
+  object-fit: contain;
+  user-select: none;
+}
+
+@keyframes slideReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1.04);
+    clip-path: circle(0% at 50% 60%);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    clip-path: circle(150% at 50% 60%);
+  }
+}
+
+/* Gold text shimmer (unused headings kept for reuse) */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* CTA buttons */
+.cta {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Cairo", sans-serif;
+  font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+  color: var(--gold-bright);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid rgba(217, 180, 95, 0.7);
+  border-radius: 9999px;
+  background: linear-gradient(to bottom, rgba(92, 18, 32, 0.95), rgba(74, 13, 22, 0.95));
+  padding: 1.4vw 3.5vw;
+  box-shadow: 0 6px 24px -6px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+}
+@media (min-width: 640px) {
+  .cta {
+    padding: 0.75rem 1.75rem;
+  }
+}
+.cta:hover {
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 35px -4px var(--gold);
+}
+.cta svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+.cta .spark {
+  color: var(--gold);
+  transition: transform 0.3s ease;
+}
+.cta:hover .spark {
+  transform: scale(1.1);
+}
+.cta-center {
+  transform: translate(-50%, -50%);
+}
+.cta-bottom {
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Countdown */
+.countdown {
+  position: absolute;
+  top: 16.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 62%;
+  display: flex;
+  justify-content: center;
+  gap: 1.2vw;
+  pointer-events: none;
+}
+.count-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1vw 0;
+  border: 1px solid rgba(217, 180, 95, 0.6);
+  border-radius: 0.5rem;
+  background: rgba(42, 6, 10, 0.8);
+  backdrop-filter: blur(4px);
+}
+.count-box .num {
+  font-family: "Amiri", serif;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--gold-bright);
+  font-size: clamp(1rem, 3.4vw, 2rem);
+}
+.count-box .lbl {
+  margin-top: 0.4vw;
+  color: rgba(217, 180, 95, 0.75);
+  font-size: clamp(0.5rem, 1.3vw, 0.8rem);
+}
+
+/* Music button */
+.music-btn {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 30;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(217, 180, 95, 0.6);
+  background: rgba(42, 6, 10, 0.7);
+  color: var(--gold);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+.music-btn:hover {
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
+  box-shadow: 0 0 25px -6px var(--gold);
+}
+.music-btn.playing {
+  box-shadow: 0 0 20px -6px var(--gold);
+}
+/* slash hidden while playing */
+.music-btn.playing #musicSlash {
+  display: none;
+}
+
+/* Step dots */
+.dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  z-index: 20;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  border: none;
+  padding: 0;
+  border-radius: 9999px;
+  background: rgba(217, 180, 95, 0.4);
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.dot:hover {
+  background: rgba(217, 180, 95, 0.7);
+}
+.dot.active {
+  width: 1.75rem;
+  background: var(--gold-bright);
+}
