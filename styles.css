@@ -157,7 +157,7 @@ body {
   transform: translate(-50%, -50%);
 }
 .cta-bottom {
-  bottom: calc(6% + 150px);
+  bottom: calc(6% + 110px);
   left: 50%;
   transform: translateX(-50%);
 }
