@@ -45,6 +45,21 @@ function startMusic() {
   music.play().then(() => musicBtn.classList.add("playing")).catch(() => {});
 }
 
+// Start as early as the browser allows: try on load, then fall back to the
+// very first interaction anywhere on the page.
+startMusic();
+(function () {
+  const kick = () => {
+    startMusic();
+    window.removeEventListener("pointerdown", kick);
+    window.removeEventListener("keydown", kick);
+    window.removeEventListener("touchstart", kick);
+  };
+  window.addEventListener("pointerdown", kick);
+  window.addEventListener("keydown", kick);
+  window.addEventListener("touchstart", kick);
+})();
+
 musicBtn.addEventListener("click", () => {
   if (music.paused) {
     music.volume = 0.5;
